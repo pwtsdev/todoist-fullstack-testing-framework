@@ -1,0 +1,13 @@
+{
+  "recommendations": [
+    "streetsidesoftware.code-spell-checker",
+    "dbaeumer.vscode-eslint",
+    "ms-playwright.playwright",
+    "esbenp.prettier-vscode",
+    "vscode-icons-team.vscode-icons",
+    "github.copilot",
+    "github.copilot-chat",
+    "github.vscode-github-actions",
+    "mhutchie.git-graph"
+  ]
+}

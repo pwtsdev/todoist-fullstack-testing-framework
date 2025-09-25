@@ -1,0 +1,44 @@
+{
+  "files.autoSave": "afterDelay",
+  "editor.tabSize": 4,
+  "editor.detectIndentation": true,
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": "always"
+  },
+  "eslint.useFlatConfig": true,
+  "prettier.prettierPath": "./node_modules/prettier",
+  "prettier.trailingComma": "all",
+  "[javascript]": {
+    "editor.tabSize": 2,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.tabSize": 2,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "github.copilot.chat.commitMessageGeneration.instructions": [
+    {
+      "text": "Generate commit messages strictly following the Conventional Commits format: <type>(<scope>): <description>."
+    },
+    {
+      "text": "Allowed types: feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert."
+    },
+    {
+      "text": "Use an optional scope in parentheses to indicate the part of the project affected."
+    },
+    {
+      "text": "The description must be concise, written in English, imperative mood, and maximum 72 characters."
+    },
+    {
+      "text": "Do not include emojis, issue numbers, or long explanations in the first line."
+    },
+    {
+      "text": "If necessary, provide additional context in a body after a blank line, wrapped at 72 characters per line."
+    },
+    {
+      "text": "If the commit introduces a breaking change, include a BREAKING CHANGE section in the footer."
+    }
+  ]
+}
