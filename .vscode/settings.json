@@ -39,6 +39,9 @@
     },
     {
       "text": "If the commit introduces a breaking change, include a BREAKING CHANGE section in the footer."
+    },
+    {
+      "text": "My branch starts with six characters followed by a hyphen (e.g., M03L07-feature). Always start the commit message with those six characters (e.g., M03L07 - feat(vscode)) ."
     }
   ]
 }

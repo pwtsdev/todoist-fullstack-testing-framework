@@ -14,6 +14,7 @@ export default defineConfig({
   workers: 1,
   reporter: 'html',
   use: {
+    timezoneId: 'Europe/Warsaw',
     baseURL: 'https://app.todoist.com',
     trace: 'on',
     contextOptions: {
