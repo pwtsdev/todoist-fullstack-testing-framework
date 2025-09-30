@@ -1,0 +1,15 @@
+#!/bin/sh
+branch=$(git rev-parse --abbrev-ref HEAD)
+prefix=$(echo "$branch" | grep -oE '^[A-Za-z0-9]{6}')
+commit_msg_file=$1
+commit_msg=$(head -n1 "$commit_msg_file")
+
+if [ -z "$prefix" ]; then
+  echo "Branch name does not start with 6 alphanumeric characters."
+  exit 1
+fi
+
+if ! echo "$commit_msg" | grep -q "^$prefix"; then
+  echo "❌ Commit message must start with: $prefix"
+  exit 1
+fi
