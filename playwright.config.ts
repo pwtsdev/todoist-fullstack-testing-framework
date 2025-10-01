@@ -1,6 +1,6 @@
 import { defineConfig, devices } from '@playwright/test';
-import dotenv from 'dotenv';
-import path from 'path';
+import * as dotenv from 'dotenv';
+import * as path from 'path';
 
 dotenv.config({ path: path.resolve(__dirname, '.env') });
 
@@ -12,7 +12,7 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
   workers: 1,
-  reporter: 'html',
+  reporter: [['html'], ['github']],
   use: {
     timezoneId: 'Europe/Warsaw',
     baseURL: 'https://app.todoist.com',
