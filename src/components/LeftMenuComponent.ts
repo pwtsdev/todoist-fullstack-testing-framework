@@ -1,4 +1,5 @@
 import { expect, Locator, Page } from '@playwright/test';
+import { getProjectIdByNameAPIStep } from '../api/steps/projects/read.project.api.step';
 import { AddProjectModal } from '../modals/AddProjectModal';
 import { BuyPremiumModal } from '../modals/BuyPremiumModal';
 import { DeleteProjectModal } from '../modals/DeleteProjectModal';
@@ -40,6 +41,9 @@ export class LeftMenuComponent extends BaseComponent {
     await expect(this.addProjectModal.addProjectForm()).toBeVisible();
     this.log.info(`✅ Creating new project: ${project.name} - ${project.color}`);
     await this.addProjectModal.addNewProject(project.name, project.color);
+
+    // API check
+    expect(await getProjectIdByNameAPIStep(project.name)).toBeTruthy();
   }
 
   async getAllProjectNames(): Promise<string[]> {
