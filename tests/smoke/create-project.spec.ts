@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import { getProjectIdByNameAPISteps } from '../../src/api/steps/projects/read.project.api.step';
+import { getProjectIdByNameAPIStep } from '../../src/api/steps/projects/read.project.api.step';
 import { expect, test } from '../../src/fixtures/po.fixture';
 import { CreateProjectModel } from '../../src/models/create-project.model';
 
@@ -15,7 +15,7 @@ test('should create a new project', { tag: ['@smoke', '@smoke001'] }, async ({ h
   await homePage.leftPanel.addNewProject(project);
 
   // API check
-  const projectId = await getProjectIdByNameAPISteps(project.name);
+  const projectId = await getProjectIdByNameAPIStep(project.name);
   expect(projectId).not.toBeNull();
 
   // Assert
