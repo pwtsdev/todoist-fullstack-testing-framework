@@ -32,3 +32,17 @@ export const getProjectIdByNameAPIStep = async (projectName: string): Promise<st
 
   return projectId as unknown as string;
 };
+
+export const getAllProjectIdsAPIStep = async (): Promise<string[]> => {
+  const INBOX_PROJECT_NAME = 'Inbox';
+
+  const response = await getRequest(`${API_URL}/${PROJECTS_ENDPOINT}`, TODOIST_AUTH_HEADERS);
+  let projectIds: string[] = [];
+
+  if (response.ok()) {
+    const projects = await parseResponse<ProjectResponse[]>(response);
+    projectIds = projects.filter((p) => p.name !== INBOX_PROJECT_NAME).map((p) => p.id);
+  }
+
+  return projectIds;
+};
