@@ -1,23 +1,22 @@
+import { ProjectColor } from '../../src/api/models/project.color.enum';
+import { ProjectPayload } from '../../src/api/models/project.model';
+import { createProjectApiStep } from '../../src/api/steps/projects/create.project.api.step';
 import { expect, test } from '../../src/fixtures/po.fixture';
-import { CreateProjectModel } from '../../src/models/create-project.model';
 
 test.describe('Add task with comments', () => {
   test('task with comments - image and voice', { tag: ['@smoke', '@smoke004'] }, async ({ homePage }) => {
     // Arrange
-    const project: CreateProjectModel = { name: 'ATTACHMENT', color: 'Winogrono' };
+    const project: ProjectPayload = { name: 'ATTACHMENT', color: ProjectColor.BERRY_RED };
 
     // Act
-    await test.step('create new project', async () => {
-      await homePage.open();
-      await homePage.leftPanel.addNewProject(project);
-      await expect(homePage.leftPanel.getProjectByName(project.name)).toBeVisible();
-    });
+    await createProjectApiStep(project);
 
     await test.step('add task with comment and attachment', async () => {
       const taskName = 'Task with comments';
       const description = 'This is a description of the task';
       const comment = 'This is a comment with attachment';
 
+      await homePage.open();
       await homePage.leftPanel.openProject(project.name);
       await expect(homePage.projectPanel.projectHeader()).toHaveText(project.name);
 

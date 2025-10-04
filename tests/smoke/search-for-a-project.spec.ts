@@ -1,27 +1,27 @@
+import { ProjectColor } from '../../src/api/models/project.color.enum';
+import { ProjectPayload } from '../../src/api/models/project.model';
+import { createProjectApiStep } from '../../src/api/steps/projects/create.project.api.step';
 import { expect, test } from '../../src/fixtures/po.fixture';
-import { CreateProjectModel } from '../../src/models/create-project.model';
 
 test.describe('Search', () => {
-  test('find and existing project', { tag: ['@smoke', '@smoke003'] }, async ({ homePage }) => {
+  test.beforeEach(async () => {
     // Arrange
-    const projects: CreateProjectModel[] = [
-      { name: 'WORK', color: 'Łosoś' },
-      { name: 'BILLS', color: 'Łosoś' },
-      { name: 'HOLIDAYS', color: 'Łosoś' },
+    const projectPayloadData: ProjectPayload[] = [
+      { name: 'WORK', color: ProjectColor.BLUE },
+      { name: 'BILLS', color: ProjectColor.GRAPE },
+      { name: 'HOLIDAYS', color: ProjectColor.LAVENDER },
     ];
 
+    for (const project of projectPayloadData) {
+      await createProjectApiStep(project);
+    }
+  });
+
+  test('find and existing project', { tag: ['@smoke', '@smoke003'] }, async ({ homePage }) => {
     const searchProject = 'WORK';
 
-    // Act
-    await test.step('create new project', async () => {
-      await homePage.open();
-      for (const project of projects) {
-        await homePage.leftPanel.addNewProject(project);
-        await expect(homePage.leftPanel.getProjectByName(project.name)).toBeVisible();
-      }
-    });
-
     await test.step('find and existing project', async () => {
+      await homePage.open();
       await homePage.leftPanel.searchForAProject(searchProject);
     });
 
