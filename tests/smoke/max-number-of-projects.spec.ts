@@ -1,26 +1,29 @@
+import { ProjectColor } from '../../src/api/models/project.color.enum';
+import { ProjectPayload } from '../../src/api/models/project.model';
+import { createProjectApiStep } from '../../src/api/steps/projects/create.project.api.step';
 import { expect, test } from '../../src/fixtures/po.fixture';
-import { CreateProjectModel } from '../../src/models/create-project.model';
 
 test.describe('Max number of projects on free plan', () => {
-  test('create project over limit', { tag: ['@smoke', '@smoke002'] }, async ({ homePage }) => {
+  test.beforeEach(async () => {
     // Arrange
-    const projects: CreateProjectModel[] = [
-      { name: 'Project One', color: 'Łosoś' },
-      { name: 'Project Two', color: 'Łosoś' },
-      { name: 'Project Three', color: 'Łosoś' },
-      { name: 'Project Four', color: 'Łosoś' },
-      { name: 'Project Five', color: 'Łosoś' },
+    const projectPayloadData: ProjectPayload[] = [
+      { name: 'Project One', color: ProjectColor.BLUE },
+      { name: 'Project Two', color: ProjectColor.GRAPE },
+      { name: 'Project Three', color: ProjectColor.LAVENDER },
+      { name: 'Project Four', color: ProjectColor.TEAL },
+      { name: 'Project Five', color: ProjectColor.SALMON },
     ];
 
+    for (const project of projectPayloadData) {
+      await createProjectApiStep(project);
+    }
+  });
+
+  test('create project over limit', { tag: ['@smoke', '@smoke002'] }, async ({ homePage }) => {
     const expectedHeader = 'Chcesz mieć do dyspozycji więcej projektów?';
 
     // Act
     await homePage.open();
-    for (const project of projects) {
-      await homePage.leftPanel.addNewProject(project);
-      await expect(homePage.leftPanel.getProjectByName(project.name)).toBeVisible();
-    }
-
     await homePage.leftPanel.openProjectsMenu();
 
     // Assert
